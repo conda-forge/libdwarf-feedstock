@@ -1,4 +1,4 @@
-{% set version = "0.3.4" %}
+{% set version = "0.4.0" %}
 
 package:
   name: libdwarf-split
@@ -6,14 +6,14 @@ package:
 
 source:
   url: https://github.com/davea42/libdwarf-code/releases/download/v{{ version }}/libdwarf-{{ version }}.tar.xz
-  sha256: 71e1aa48eb5489f0e020826a13aee42c76135212cccbb1c7ba686214d4e47d5f
+  sha256: 8a2d5869d293d5ce8949bf35a373f5b233a557ef5d681217e5f5c1ba7496499f
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
     - patches/0001-use-PATH-resolution-when-testing-dwarfdump.patch
 
 build:
   number: 0
-  skip: True  # [win]
+  skip: true  # [win]
 
 requirements:
   build:
@@ -51,7 +51,7 @@ outputs:
         - dwarfdump --version
     about:
       home: https://www.prevanders.net/dwarf.html
-      summary: 'utility dumping DWARF Debugging Information Format to text'
+      summary: utility dumping DWARF Debugging Information Format to text
       description: |
         The DWARF Debugging Information Format is of interest to programmers working on compilers and
         debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
@@ -102,10 +102,10 @@ outputs:
         - test -f $PREFIX/include/libdwarf.h
         - test -f $PREFIX/include/libdwarf-?/dwarf.h
         - test -f $PREFIX/lib/libdwarf${SHLIB_EXT}
-    
+
     about:
       home: https://www.prevanders.net/dwarf.html
-      summary: 'a library for manipulating DWARF Debugging Information Format (headers & dev stuff)'
+      summary: a library for manipulating DWARF Debugging Information Format (headers & dev stuff)
       description: |
         The DWARF Debugging Information Format is of interest to programmers working on compilers and
         debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
@@ -142,7 +142,7 @@ outputs:
         - test ! -f $PREFIX/lib/libdwarf*.a
     about:
       home: https://www.prevanders.net/dwarf.html
-      summary: 'a library for manipulating DWARF Debugging Information Format (runtime .so)'
+      summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
       description: |
         The DWARF Debugging Information Format is of interest to programmers working on compilers and
         debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
@@ -193,7 +193,7 @@ outputs:
         - make -C test check || ( cat test/test-suite.log; exit 1 )
     about:
       home: https://www.prevanders.net/dwarf.html
-      summary: 'library and utility for DWARF (meta with everything enable post-install check)'
+      summary: library and utility for DWARF (meta with everything enable post-install check)
       description: |
         The DWARF Debugging Information Format is of interest to programmers working on compilers and
         debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
@@ -222,7 +222,7 @@ outputs:
 
 about:
   home: https://www.prevanders.net/dwarf.html
-  summary: 'library and utility for manipulating DWARF Debugging Information Format'
+  summary: library and utility for manipulating DWARF Debugging Information Format
   description: |
     The DWARF Debugging Information Format is of interest to programmers working on compilers and
     debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
