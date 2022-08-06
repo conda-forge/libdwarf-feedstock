@@ -181,6 +181,7 @@ outputs:
         - autoconf     # [unix]
         - automake     # [unix]
         - libtool      # [unix]
+        - python >=3
         - zlib
       source_files:
         - '*'  # yes, we configure to not build and rerun make check with installed artifacts
