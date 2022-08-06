@@ -1,0 +1,34 @@
+From 27cd491ae4f2b40e8660340de4a5e900cb772ec2 Mon Sep 17 00:00:00 2001
+From: Tim Snyder <snyder.tim@gmail.com>
+Date: Sat, 9 Apr 2022 17:17:08 +0000
+Subject: [PATCH 2/2] use PATH resolution when testing dwarfdump
+
+perhaps we haven't built it but we want to test the installed binary
+---
+ test/dwarfdumpsetup.sh | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/test/dwarfdumpsetup.sh b/test/dwarfdumpsetup.sh
+index 354ea0fe4..09df1b2fb 100755
+--- a/test/dwarfdumpsetup.sh
++++ b/test/dwarfdumpsetup.sh
+@@ -55,9 +55,13 @@ fi
+ # prints differently for different time zones.
+ textlim=700
+ cp "$top_srcdir/src/bin/dwarfdump/dwarfdump.conf" .
+-dd=$top_blddir/src/bin/dwarfdump/dwarfdump
+-
+-# Delete what follows 'last time 0x0'
++# prefix PATH with build location of dwarfdump
++# if configure --disable-dwarfdump this will only work
++# tests will only work if dwarfdump is installed somewhere
++# else in the path already and working
++export PATH=$top_blddir/src/bin/dwarfdump:$PATH
++dd=dwarfdump
++echo -n "Testing dwarfdump @ "; which dwarfdump
+ fixlasttime() {
+   i=$1
+   t=$2
+-- 
+2.35.1
+

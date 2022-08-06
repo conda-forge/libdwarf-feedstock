@@ -1,7 +1,7 @@
-From 6469094f996f6c65131b2fe69ae9e4709c346602 Mon Sep 17 00:00:00 2001
+From adb4039bd484deb607e79202aa833009eb984d8f Mon Sep 17 00:00:00 2001
 From: Tim Snyder <snyder.tim@gmail.com>
 Date: Sat, 9 Apr 2022 15:20:00 +0000
-Subject: [PATCH] add --enable_libdwarf and --enable_dwarfdump to configure
+Subject: [PATCH 1/2] add --enable_libdwarf and --enable_dwarfdump to configure
 
 By disabling libdwarf and dwarfdump with configure we can use the tests
 against already installed libdwarf and dwarfdump.
@@ -11,13 +11,13 @@ against already installed libdwarf and dwarfdump.
  2 files changed, 36 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index cdc9e97bf..7b175a53f 100644
+index b82e606c8..d9b8f3889 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -3,7 +3,15 @@
- 
+@@ -4,7 +4,15 @@
  ACLOCAL_AMFLAGS = -I m4
  
+ AUTOMAKE_OPTIONS=subdir-objects
 -SUBDIRS = src/lib/libdwarf src/bin/dwarfdump
 +SUBDIRS =
 +
@@ -32,10 +32,10 @@ index cdc9e97bf..7b175a53f 100644
  if HAVE_DWARFGEN
    SUBDIRS += src/lib/libdwarfp
 diff --git a/configure.ac b/configure.ac
-index 5d79f000c..16de2ed60 100644
+index 5021b5ca7..9b2c68264 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -25,6 +25,31 @@ AC_CONFIG_MACRO_DIRS([m4])
+@@ -28,6 +28,31 @@ AC_CONFIG_MACRO_DIRS([m4])
  
  ### Additional options to configure
  
@@ -67,7 +67,7 @@ index 5d79f000c..16de2ed60 100644
  AC_ARG_ENABLE([dwarfgen],
     [AS_HELP_STRING([--enable-dwarfgen],
                     [enable dwarfgen compilation @<:@default=no@:>@])],
-@@ -413,11 +438,11 @@ echo "  sanitize support.....: ${enable_sanitize}"
+@@ -415,11 +440,11 @@ echo "  sanitize support.....: ${enable_sanitize}"
  echo "  documentation........: ${enable_doc}"
  echo "  BuildOS-BigEndian....: ${ac_cv_c_bigendian}"
  echo
