@@ -26,6 +26,7 @@ requirements:
     - make        # [unix]
     - pkg-config  # [unix]
     - git  # for better patch application
+    - python >=3  # for test scripts
   host:
     - zlib
   run:
