@@ -25,6 +25,7 @@ requirements:
     - libtool     # [unix]
     - make        # [unix]
     - pkg-config  # [unix]
+    - git  # for better patch application
   host:
     - zlib
   run:
