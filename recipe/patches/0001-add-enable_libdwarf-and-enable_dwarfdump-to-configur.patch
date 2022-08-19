@@ -1,38 +1,40 @@
-From adb4039bd484deb607e79202aa833009eb984d8f Mon Sep 17 00:00:00 2001
+From 4a56b7af6f8c33aff1e41a8932d111b46615b9e0 Mon Sep 17 00:00:00 2001
 From: Tim Snyder <snyder.tim@gmail.com>
 Date: Sat, 9 Apr 2022 15:20:00 +0000
-Subject: [PATCH 1/2] add --enable_libdwarf and --enable_dwarfdump to configure
+Subject: [PATCH] add --enable_libdwarf and --enable_dwarfdump to configure
 
 By disabling libdwarf and dwarfdump with configure we can use the tests
 against already installed libdwarf and dwarfdump.
 ---
- Makefile.am  | 10 +++++++++-
+ Makefile.am  | 12 +++++++++++-
  configure.ac | 29 +++++++++++++++++++++++++++--
- 2 files changed, 36 insertions(+), 3 deletions(-)
+ 2 files changed, 38 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index b82e606c8..d9b8f3889 100644
+index 83c14e979..0ed335a40 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -4,7 +4,15 @@
+@@ -3,7 +3,17 @@
+ 
  ACLOCAL_AMFLAGS = -I m4
  
- AUTOMAKE_OPTIONS=subdir-objects
--SUBDIRS = src/lib/libdwarf src/bin/dwarfdump
+-SUBDIRS = libdwarf dwarfdump
++AUTOMAKE_OPTIONS=subdir-objects
 +SUBDIRS =
 +
 +if HAVE_LIBDWARF
-+SUBDIRS += src/lib/libdwarf
++SUBDIRS += libdwarf
 +endif
 +
 +if HAVE_DWARFDUMP
-+SUBDIRS += src/bin/dwarfdump
++SUBDIRS += dwarfdump
 +endif
- 
++
  if HAVE_DWARFGEN
-   SUBDIRS += src/lib/libdwarfp
+ SUBDIRS += dwarfgen
+ endif
 diff --git a/configure.ac b/configure.ac
-index 5021b5ca7..9b2c68264 100644
+index 0e84d64da..734d52e26 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -28,6 +28,31 @@ AC_CONFIG_MACRO_DIRS([m4])
@@ -67,20 +69,24 @@ index 5021b5ca7..9b2c68264 100644
  AC_ARG_ENABLE([dwarfgen],
     [AS_HELP_STRING([--enable-dwarfgen],
                     [enable dwarfgen compilation @<:@default=no@:>@])],
-@@ -415,11 +440,11 @@ echo "  sanitize support.....: ${enable_sanitize}"
- echo "  documentation........: ${enable_doc}"
- echo "  BuildOS-BigEndian....: ${ac_cv_c_bigendian}"
+@@ -755,7 +780,7 @@ echo
+ echo "  zlib support.........: ${have_zlib}"
+ echo "  sanitize support.....: ${enable_sanitize}"
  echo
 -echo "  libdwarf.............: always"
 +echo "  libdwarf.............: ${enable_libdwarf}"
+ echo "    old frame column...: ${enable_oldframecol}"
+ echo "    names table........: ${enable_namestable}"
  echo "    elf64_getehdr......: ${have_getehdr}"
- echo "    elf64_getshdr......: ${have_getshdr}"
- echo "    libelf.............: ${dwarf_with_libelf}"
+@@ -765,7 +790,7 @@ echo "    Elf64_Sym..........: ${have_elf64_sym}"
+ echo "    Elf spelled........: ${struct_elf}"
+ echo "    Windows path corr..: ${enable_windowspath}"
+ echo "    Nonstandardprintf..: ${enable_nonstandardprintf}"
 -echo "  dwarfdump............: always"
 +echo "  dwarfdump............: ${enable_dwarfdump}"
- echo "  dwarfgen.............: ${enable_dwarfgen}"
- echo "  dwarfexample.........: ${enable_dwarfexample}"
- echo
+ echo "    elf64_getehdr......: ${have_getehdr}"
+ echo "    Elf64_Rel (r_info).: ${have_elf64_rel}"
+ echo "    regex..............: ${have_regex}"
 -- 
-2.35.1
+1.8.3.1
 

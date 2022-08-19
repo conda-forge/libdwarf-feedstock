@@ -1,15 +1,16 @@
-{% set version = "0.4.1" %}
+{% set version = "20190110-28-ga81397fc4" %}
 
 package:
   name: libdwarf-split
-  version: {{ version }}
+  # add 0.0.0. prefix to conda package versions from previous 'epoch' of version naming based on dates
+  version: 0.0.0.{{ version | replace('-', '_') }}
 
 source:
-  url: https://github.com/davea42/libdwarf-code/releases/download/v{{ version }}/libdwarf-{{ version }}.tar.xz
-  sha256: 34277b969d30be3cc4c6fbce6926dd3e6f9ea9a27b01951c6753b479aadfd5ef
+  git_url: https://github.com/davea42/libdwarf-code.git
+  git_rev: {{ version }}
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
-    - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
+    - patches/0002-fixup-runtests.sh-scripts-for-conda-env-assumptions.patch
 
 build:
   number: 0
@@ -29,6 +30,7 @@ requirements:
     - python >=3  # for test scripts
   host:
     - zlib
+    - elfutils
   run:
 
 outputs:
@@ -38,6 +40,7 @@ outputs:
         - {{ compiler('c') }}
       host:
         - zlib
+        - elfutils
         - {{ pin_subpackage('libdwarf', exact=True) }}
       run:
         - {{ pin_subpackage('libdwarf') }}
@@ -69,9 +72,9 @@ outputs:
       license_family: GPL
       license_file:
         - COPYING
-        - src/bin/dwarfdump/COPYING
-        - src/bin/dwarfdump/DWARFDUMPCOPYRIGHT
-        - src/bin/dwarfdump/GPL.txt
+        - dwarfdump/COPYING
+        - dwarfdump/DWARFDUMPCOPYRIGHT
+        - dwarfdump/GPL.txt
       doc_url: https://www.prevanders.net/libdwarfdoc/
       dev_url: https://github.com/davea42/libdwarf-code
   - name: libdwarf-dev
@@ -86,23 +89,18 @@ outputs:
         - {{ compiler('c') }}
       host:
         - zlib
+        - elfutils
       run:
         - {{ pin_subpackage('libdwarf', exact=True) }}
     files:
       - include/libdwarf.h
-      - include/libdwarf-?/dwarf.h
-      - lib/pkgconfig/libdwarf*
       - lib/libdwarf.so          # [linux]
       - lib/libdwarf.dylib       # [osx]
     test:
       requires:
         - zlib
-        - pkg-config
       commands:
-        - pkg-config --print-provides libdwarf
-        - pkg-config --print-errors --exact-version=$PKG_VERSION libdwarf
         - test -f $PREFIX/include/libdwarf.h
-        - test -f $PREFIX/include/libdwarf-?/dwarf.h
         - test -f $PREFIX/lib/libdwarf${SHLIB_EXT}
 
     about:
@@ -123,9 +121,9 @@ outputs:
       license_family: GPL
       license_file:
         - COPYING
-        - src/lib/libdwarf/LIBDWARFCOPYRIGHT
-        - src/lib/libdwarf/LGPL.txt
-        - src/lib/libdwarf/COPYING
+        - libdwarf/LIBDWARFCOPYRIGHT
+        - libdwarf/LGPL.txt
+        - libdwarf/COPYING
       doc_url: https://www.prevanders.net/libdwarfdoc/
       dev_url: https://github.com/davea42/libdwarf-code
   - name: libdwarf
@@ -134,6 +132,7 @@ outputs:
         - {{ compiler('c') }}
       host:
         - zlib
+        - elfutils
         - libzlib
       run:
     files:
@@ -160,9 +159,9 @@ outputs:
       license_family: GPL
       license_file:
         - COPYING
-        - src/lib/libdwarf/LIBDWARFCOPYRIGHT
-        - src/lib/libdwarf/LGPL.txt
-        - src/lib/libdwarf/COPYING
+        - libdwarf/LIBDWARFCOPYRIGHT
+        - libdwarf/LGPL.txt
+        - libdwarf/COPYING
       doc_url: https://www.prevanders.net/libdwarfdoc/
       dev_url: https://github.com/davea42/libdwarf-code
 
@@ -170,6 +169,7 @@ outputs:
     requirements:
       host:
         - zlib
+        - elfutils
       run:
         - {{ pin_subpackage('dwarfdump', exact=True) }}
         - {{ pin_subpackage('libdwarf-dev', exact=True) }}
@@ -177,7 +177,6 @@ outputs:
       requires:
         - {{ compiler('c') }}
         - make         # [unix]
-        - pkg-config   # [unix]
         - autoconf     # [unix]
         - automake     # [unix]
         - libtool      # [unix]
@@ -187,13 +186,11 @@ outputs:
         - '*'  # yes, we configure to not build and rerun make check with installed artifacts
       commands:
         - dwarfdump --version
-        - pkg-config --print-provides libdwarf
-        - pkg-config --print-errors --exact-version=$PKG_VERSION libdwarf
         - mkdir build && cd build
           # add -ldwarf to LDLIBS so that linker looks for it in -L$PREFIX/lib provided by our compiler
           # activation scripts
         - LDLIBS+=-ldwarf ../configure --disable-libdwarf --disable-dwarfdump
-        - make -C test check || ( cat test/test-suite.log; exit 1 )
+        - make check
     about:
       home: https://www.prevanders.net/dwarf.html
       summary: library and utility for DWARF (meta with everything enable post-install check)
@@ -214,12 +211,12 @@ outputs:
       license_family: GPL
       license_file:
         - COPYING
-        - src/lib/libdwarf/LIBDWARFCOPYRIGHT
-        - src/lib/libdwarf/LGPL.txt
-        - src/lib/libdwarf/COPYING
-        - src/bin/dwarfdump/COPYING
-        - src/bin/dwarfdump/DWARFDUMPCOPYRIGHT
-        - src/bin/dwarfdump/GPL.txt
+        - libdwarf/LIBDWARFCOPYRIGHT
+        - libdwarf/LGPL.txt
+        - libdwarf/COPYING
+        - dwarfdump/COPYING
+        - dwarfdump/DWARFDUMPCOPYRIGHT
+        - dwarfdump/GPL.txt
       doc_url: https://www.prevanders.net/libdwarfdoc/
       dev_url: https://github.com/davea42/libdwarf-code
 
@@ -241,12 +238,12 @@ about:
   license_family: GPL
   license_file:
     - COPYING
-    - src/lib/libdwarf/LIBDWARFCOPYRIGHT
-    - src/lib/libdwarf/LGPL.txt
-    - src/lib/libdwarf/COPYING
-    - src/bin/dwarfdump/COPYING
-    - src/bin/dwarfdump/DWARFDUMPCOPYRIGHT
-    - src/bin/dwarfdump/GPL.txt
+    - libdwarf/LIBDWARFCOPYRIGHT
+    - libdwarf/LGPL.txt
+    - libdwarf/COPYING
+    - dwarfdump/COPYING
+    - dwarfdump/DWARFDUMPCOPYRIGHT
+    - dwarfdump/GPL.txt
   doc_url: https://www.prevanders.net/libdwarfdoc/
   dev_url: https://github.com/davea42/libdwarf-code
 

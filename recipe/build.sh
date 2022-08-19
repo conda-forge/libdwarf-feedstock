@@ -29,7 +29,8 @@ cd build
 make -j${CPU_COUNT}
 make check
 make install
-mv $PREFIX/include/libdwarf-*/libdwarf.h $PREFIX/include
+# don't need to do this move in older versions
+#mv $PREFIX/include/libdwarf-*/libdwarf.h $PREFIX/include
 # leave dwarf.h inside include/libdwarf-0 because elfutils also has a vendored dwarf.h
 # but we want libdwarf.h to not be versioned
 
