@@ -1,0 +1,41 @@
+From 1059864d1b2bda45561c3c3ff05a3fb8eeb1c21b Mon Sep 17 00:00:00 2001
+From: Tim Snyder <snyder.tim@gmail.com>
+Date: Fri, 19 Aug 2022 22:46:39 +0000
+Subject: [PATCH 2/2] fixup runtests.sh scripts for conda env assumptions
+
+---
+ dwarfdump/runtests.sh | 4 ++--
+ libdwarf/runtests.sh  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/dwarfdump/runtests.sh b/dwarfdump/runtests.sh
+index ec4246877..ca764ff11 100755
+--- a/dwarfdump/runtests.sh
++++ b/dwarfdump/runtests.sh
+@@ -25,8 +25,8 @@ then
+ fi
+ }
+ 
+-CC=cc
+-CFLAGS="-g -O2 -I$top_blddir -I$top_srcdir/libdwarf  -I$top_blddir/libdwarf"
++CC="${CC:-cc}"
++CFLAGS+=" -g -O2 -I$top_blddir -I$top_srcdir/libdwarf  -I$top_blddir/libdwarf"
+ 
+ echo "dwgetopt test"
+ $CC $CFLAGS -o getopttest $srcdir/getopttest.c $srcdir/dwgetopt.c
+diff --git a/libdwarf/runtests.sh b/libdwarf/runtests.sh
+index 8990a3ab6..645b260cc 100755
+--- a/libdwarf/runtests.sh
++++ b/libdwarf/runtests.sh
+@@ -25,7 +25,7 @@ then
+ fi
+ }
+ 
+-CC=cc
++CC="${CC:-cc}"
+ CFLAGS="-g -O2 -I$top_blddir -I$top_srcdir/libdwarf -I$top_blddir/libdwarf"
+ $CC $CFLAGS -DTESTING  $srcdir/dwarf_leb.c $srcdir/pro_encode_nm.c -o dwarfleb
+ chkres $? "compiling dwarfleb test"
+-- 
+1.8.3.1
+
