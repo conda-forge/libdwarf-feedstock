@@ -253,4 +253,5 @@ about:
 extra:
   recipe-maintainers:
     - timsnyder
+    - kkraus14
   feedstock-name: libdwarf
