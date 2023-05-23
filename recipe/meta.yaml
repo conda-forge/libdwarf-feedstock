@@ -29,6 +29,7 @@ requirements:
     - python >=3  # for test scripts
   host:
     - zlib
+    - zstd
   run:
 
 outputs:
@@ -38,6 +39,7 @@ outputs:
         - {{ compiler('c') }}
       host:
         - zlib
+        - zstd
         - {{ pin_subpackage('libdwarf', exact=True) }}
       run:
         - {{ pin_subpackage('libdwarf') }}
@@ -48,6 +50,7 @@ outputs:
     test:
       requires:
         - zlib
+        - zstd
         - {{ pin_subpackage('libdwarf', exact=True) }}
       commands:
         - dwarfdump --version
@@ -86,6 +89,7 @@ outputs:
         - {{ compiler('c') }}
       host:
         - zlib
+        - zstd
       run:
         - {{ pin_subpackage('libdwarf', exact=True) }}
     files:
@@ -97,6 +101,7 @@ outputs:
     test:
       requires:
         - zlib
+        - zstd
         - pkg-config
       commands:
         - pkg-config --print-provides libdwarf
@@ -135,6 +140,7 @@ outputs:
       host:
         - zlib
         - libzlib
+        - zstd
       run:
     files:
       - lib/libdwarf.so.*        # [linux]
@@ -170,6 +176,7 @@ outputs:
     requirements:
       host:
         - zlib
+        - zstd
       run:
         - {{ pin_subpackage('dwarfdump', exact=True) }}
         - {{ pin_subpackage('libdwarf-dev', exact=True) }}
@@ -183,6 +190,7 @@ outputs:
         - libtool      # [unix]
         - python >=3
         - zlib
+        - zstd
       source_files:
         - '*'  # yes, we configure to not build and rerun make check with installed artifacts
       commands:
