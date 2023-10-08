@@ -73,9 +73,6 @@ index 5021b5ca7..9b2c68264 100644
  echo
 -echo "  libdwarf.............: always"
 +echo "  libdwarf.............: ${enable_libdwarf}"
- echo "    elf64_getehdr......: ${have_getehdr}"
- echo "    elf64_getshdr......: ${have_getshdr}"
- echo "    libelf.............: ${dwarf_with_libelf}"
 -echo "  dwarfdump............: always"
 +echo "  dwarfdump............: ${enable_dwarfdump}"
  echo "  dwarfgen.............: ${enable_dwarfgen}"
