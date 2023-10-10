@@ -3,6 +3,7 @@ About libdwarf-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libdwarf-feedstock/blob/main/LICENSE.txt)
 
+
 About libdwarf
 --------------
 
@@ -24,6 +25,7 @@ use and as part of SGI IRIX developer tools. From around 1993 dwarfdump and libd
 shipped (as an executable and archive respectively, not source) with every release of the SGI
 MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
+
 
 About libdwarf
 --------------
@@ -47,6 +49,7 @@ shipped (as an executable and archive respectively, not source) with every relea
 MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
 
+
 About dwarfdump
 ---------------
 
@@ -69,6 +72,7 @@ shipped (as an executable and archive respectively, not source) with every relea
 MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
 
+
 About libdwarf-dev
 ------------------
 
@@ -90,6 +94,7 @@ use and as part of SGI IRIX developer tools. From around 1993 dwarfdump and libd
 shipped (as an executable and archive respectively, not source) with every release of the SGI
 MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
+
 
 About libdwarf-testing-meta
 ---------------------------

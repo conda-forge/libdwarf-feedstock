@@ -1,17 +1,15 @@
-From adb4039bd484deb607e79202aa833009eb984d8f Mon Sep 17 00:00:00 2001
-From: Tim Snyder <snyder.tim@gmail.com>
-Date: Sat, 9 Apr 2022 15:20:00 +0000
-Subject: [PATCH 1/2] add --enable_libdwarf and --enable_dwarfdump to configure
+From cc234fd5b29b4fa7c138adeed10a2955f6d713e9 Mon Sep 17 00:00:00 2001
+From: Keith Kraus <keith.j.kraus@gmail.com>
+Date: Tue, 10 Oct 2023 13:20:14 -0400
+Subject: [PATCH] add --enable_libdwarf and --enable_dwarfdump to configure
 
-By disabling libdwarf and dwarfdump with configure we can use the tests
-against already installed libdwarf and dwarfdump.
 ---
  Makefile.am  | 10 +++++++++-
  configure.ac | 29 +++++++++++++++++++++++++++--
  2 files changed, 36 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index b82e606c8..d9b8f3889 100644
+index 772036f6..371dda6a 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -4,7 +4,15 @@
@@ -32,7 +30,7 @@ index b82e606c8..d9b8f3889 100644
  if HAVE_DWARFGEN
    SUBDIRS += src/lib/libdwarfp
 diff --git a/configure.ac b/configure.ac
-index 5021b5ca7..9b2c68264 100644
+index 8c80f5eb..87368e0b 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -28,6 +28,31 @@ AC_CONFIG_MACRO_DIRS([m4])
@@ -67,20 +65,17 @@ index 5021b5ca7..9b2c68264 100644
  AC_ARG_ENABLE([dwarfgen],
     [AS_HELP_STRING([--enable-dwarfgen],
                     [enable dwarfgen compilation @<:@default=no@:>@])],
-@@ -415,11 +440,11 @@ echo "  sanitize support.....: ${enable_sanitize}"
+@@ -441,8 +466,8 @@ echo "  sanitize support.....: ${enable_sanitize}"
  echo "  documentation........: ${enable_doc}"
  echo "  BuildOS-BigEndian....: ${ac_cv_c_bigendian}"
  echo
 -echo "  libdwarf.............: always"
-+echo "  libdwarf.............: ${enable_libdwarf}"
- echo "    elf64_getehdr......: ${have_getehdr}"
- echo "    elf64_getshdr......: ${have_getshdr}"
- echo "    libelf.............: ${dwarf_with_libelf}"
 -echo "  dwarfdump............: always"
++echo "  libdwarf.............: ${enable_libdwarf}"
 +echo "  dwarfdump............: ${enable_dwarfdump}"
+ echo "  dwarfdump print utf-8: ${have_utf8}"
  echo "  dwarfgen.............: ${enable_dwarfgen}"
  echo "  dwarfexample.........: ${enable_dwarfexample}"
- echo
 -- 
-2.35.1
+2.34.1
 
