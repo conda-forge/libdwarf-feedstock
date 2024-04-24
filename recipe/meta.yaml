@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/davea42/libdwarf-code/releases/download/v{{ version }}/libdwarf-{{ version }}.tar.xz
-  sha256: 22b66d06831a76f6a062126cdcad3fcc58540b89a1acb23c99f8861f50999ec3
+  sha256: c1cd51467f9cb8459cd27d4071857abc56191cc5d4182d8bdd7744030f88f830
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
     - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
@@ -19,11 +19,8 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - cmake       # [win]
-    - autoconf    # [unix]
-    - automake    # [unix]
-    - libtool     # [unix]
-    - make        # [unix]
+    - cmake
+    - ninja       # [unix]
     - pkg-config  # [unix]
     - git  # for better patch application
     - python >=3  # for test scripts
@@ -45,6 +42,8 @@ outputs:
         - {{ pin_subpackage('libdwarf') }}
     files:
       - bin/dwarfdump
+      - lib/libdwarf.so          # [linux]
+      - lib/libdwarf.dylib       # [osx]
       - share/dwarfdump/dwarfdump.conf
       - man/man1/dwarfdump.1
     test:
@@ -94,8 +93,9 @@ outputs:
         - {{ pin_subpackage('libdwarf', exact=True) }}
     files:
       - include/libdwarf.h
-      - include/libdwarf-?/dwarf.h
+      - include/dwarf.h
       - lib/pkgconfig/libdwarf*
+      - lib/cmake/libdwarf
       - lib/libdwarf.so          # [linux]
       - lib/libdwarf.dylib       # [osx]
     test:
@@ -103,12 +103,22 @@ outputs:
         - zlib
         - zstd
         - pkg-config
+        - cmake
+        - ninja
+        - {{ compiler('c') }}
+      files:
+        - test
       commands:
         - pkg-config --print-provides libdwarf
-        - pkg-config --print-errors --exact-version=$PKG_VERSION libdwarf
+        - pkg-config --print-errors --exact-version="\"$PKG_VERSION\"" libdwarf
         - test -f $PREFIX/include/libdwarf.h
-        - test -f $PREFIX/include/libdwarf-?/dwarf.h
+        - test -f $PREFIX/include/dwarf.h
         - test -f $PREFIX/lib/libdwarf${SHLIB_EXT}
+        - test -f $PREFIX/lib/cmake/libdwarf/libdwarfConfig.cmake
+        - cd test
+        - cmake . -GNinja -DCMAKE_BUILD_TYPE=Release
+        - cmake --build . --config Release
+        - ./program
 
     about:
       home: https://www.prevanders.net/dwarf.html
@@ -169,65 +179,6 @@ outputs:
         - src/lib/libdwarf/LIBDWARFCOPYRIGHT
         - src/lib/libdwarf/LGPL.txt
         - src/lib/libdwarf/COPYING
-      doc_url: https://www.prevanders.net/libdwarfdoc/
-      dev_url: https://github.com/davea42/libdwarf-code
-
-  - name: libdwarf-testing-meta
-    requirements:
-      host:
-        - zlib
-        - zstd
-      run:
-        - {{ pin_subpackage('dwarfdump', exact=True) }}
-        - {{ pin_subpackage('libdwarf-dev', exact=True) }}
-    test:
-      requires:
-        - {{ compiler('c') }}
-        - make         # [unix]
-        - pkg-config   # [unix]
-        - autoconf     # [unix]
-        - automake     # [unix]
-        - libtool      # [unix]
-        - python >=3
-        - zlib
-        - zstd
-      source_files:
-        - '*'  # yes, we configure to not build and rerun make check with installed artifacts
-      commands:
-        - dwarfdump --version
-        - pkg-config --print-provides libdwarf
-        - pkg-config --print-errors --exact-version=$PKG_VERSION libdwarf
-        - mkdir build && cd build
-          # add -ldwarf to LDLIBS so that linker looks for it in -L$PREFIX/lib provided by our compiler
-          # activation scripts
-        - LDLIBS+=-ldwarf ../configure --disable-libdwarf --disable-dwarfdump
-        - make -C test check || ( cat test/test-suite.log; exit 1 )
-    about:
-      home: https://www.prevanders.net/dwarf.html
-      summary: library and utility for DWARF (meta with everything enable post-install check)
-      description: |
-        The DWARF Debugging Information Format is of interest to programmers working on compilers and
-        debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
-        committee (known as the PLSIG at the time) starting around 1991. Starting around 1991 SGI got
-        involved with the committee and then developed the libdwarf and dwarfdump tools for SGI-internal
-        use and as part of SGI IRIX developer tools. From around 1993 dwarfdump and libdwarf were
-        shipped (as an executable and archive respectively, not source) with every release of the SGI
-        MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
-        open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
-
-        This package can run 'make check' using installed library and dwarfdump via `conda build --test libdwarf-meta-testing`
-      #  libdwarf is LGPL-2.1 and dwarfdump is GPL-2.0
-      #  There are some files under less-restrictive licenses but there you have it
-      license: LGPL-2.1-only AND GPL-2.0-only
-      license_family: GPL
-      license_file:
-        - COPYING
-        - src/lib/libdwarf/LIBDWARFCOPYRIGHT
-        - src/lib/libdwarf/LGPL.txt
-        - src/lib/libdwarf/COPYING
-        - src/bin/dwarfdump/COPYING
-        - src/bin/dwarfdump/DWARFDUMPCOPYRIGHT
-        - src/bin/dwarfdump/GPL.txt
       doc_url: https://www.prevanders.net/libdwarfdoc/
       dev_url: https://github.com/davea42/libdwarf-code
 
