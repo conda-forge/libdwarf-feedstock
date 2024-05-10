@@ -19,6 +19,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
     - cmake
     - ninja       # [unix]
     - pkg-config  # [unix]
@@ -34,6 +35,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
       host:
         - zlib
         - zstd
@@ -86,6 +88,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
       host:
         - zlib
         - zstd
@@ -106,6 +109,7 @@ outputs:
         - cmake
         - ninja
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
       files:
         - test
       commands:
@@ -147,6 +151,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib("c") }}
       host:
         - zlib
         - libzlib
