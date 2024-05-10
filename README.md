@@ -96,31 +96,6 @@ MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my reque
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
 
 
-About libdwarf-testing-meta
----------------------------
-
-Home: https://www.prevanders.net/dwarf.html
-
-Package license: LGPL-2.1-only AND GPL-2.0-only
-
-Summary: library and utility for DWARF (meta with everything enable post-install check)
-
-Development: https://github.com/davea42/libdwarf-code
-
-Documentation: https://www.prevanders.net/libdwarfdoc/
-
-The DWARF Debugging Information Format is of interest to programmers working on compilers and
-debuggers (and anyone interested in reading or writing DWARF information). It was developed by a
-committee (known as the PLSIG at the time) starting around 1991. Starting around 1991 SGI got
-involved with the committee and then developed the libdwarf and dwarfdump tools for SGI-internal
-use and as part of SGI IRIX developer tools. From around 1993 dwarfdump and libdwarf were
-shipped (as an executable and archive respectively, not source) with every release of the SGI
-MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my request) to
-open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
-
-This package can run 'make check' using installed library and dwarfdump via `conda build --test libdwarf-meta-testing`
-
-
 Current build status
 ====================
 
@@ -168,7 +143,6 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-dwarfdump-green.svg)](https://anaconda.org/conda-forge/dwarfdump) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/dwarfdump.svg)](https://anaconda.org/conda-forge/dwarfdump) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/dwarfdump.svg)](https://anaconda.org/conda-forge/dwarfdump) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/dwarfdump.svg)](https://anaconda.org/conda-forge/dwarfdump) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libdwarf-green.svg)](https://anaconda.org/conda-forge/libdwarf) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libdwarf.svg)](https://anaconda.org/conda-forge/libdwarf) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libdwarf.svg)](https://anaconda.org/conda-forge/libdwarf) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libdwarf.svg)](https://anaconda.org/conda-forge/libdwarf) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libdwarf--dev-green.svg)](https://anaconda.org/conda-forge/libdwarf-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libdwarf-dev.svg)](https://anaconda.org/conda-forge/libdwarf-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libdwarf-dev.svg)](https://anaconda.org/conda-forge/libdwarf-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libdwarf-dev.svg)](https://anaconda.org/conda-forge/libdwarf-dev) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libdwarf--testing--meta-green.svg)](https://anaconda.org/conda-forge/libdwarf-testing-meta) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libdwarf-testing-meta.svg)](https://anaconda.org/conda-forge/libdwarf-testing-meta) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libdwarf-testing-meta.svg)](https://anaconda.org/conda-forge/libdwarf-testing-meta) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libdwarf-testing-meta.svg)](https://anaconda.org/conda-forge/libdwarf-testing-meta) |
 
 Installing libdwarf
 ===================
@@ -180,16 +154,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `dwarfdump, libdwarf, libdwarf-dev, libdwarf-testing-meta` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `dwarfdump, libdwarf, libdwarf-dev` can be installed with `conda`:
 
 ```
-conda install dwarfdump libdwarf libdwarf-dev libdwarf-testing-meta
+conda install dwarfdump libdwarf libdwarf-dev
 ```
 
 or with `mamba`:
 
 ```
-mamba install dwarfdump libdwarf libdwarf-dev libdwarf-testing-meta
+mamba install dwarfdump libdwarf libdwarf-dev
 ```
 
 It is possible to list all of the versions of `dwarfdump` available on your platform with `conda`:
