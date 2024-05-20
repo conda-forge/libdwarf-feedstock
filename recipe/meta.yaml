@@ -158,6 +158,7 @@ outputs:
       - lib/libdwarf.dylib       # [osx]
     test:
       commands:
+        - test ! -f $PREFIX/lib/libdwarf*.a
         - test -f $PREFIX/lib/libdwarf.so      # [linux]
         - test -f $PREFIX/lib/libdwarf.dylib   # [osx]
     about:
