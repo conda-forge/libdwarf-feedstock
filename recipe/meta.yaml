@@ -12,7 +12,7 @@ source:
     - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -44,8 +44,6 @@ outputs:
         - {{ pin_subpackage('libdwarf') }}
     files:
       - bin/dwarfdump
-      - lib/libdwarf.so          # [linux]
-      - lib/libdwarf.dylib       # [osx]
       - share/dwarfdump/dwarfdump.conf
       - man/man1/dwarfdump.1
     test:
@@ -99,8 +97,6 @@ outputs:
       - include/dwarf.h
       - lib/pkgconfig/libdwarf*
       - lib/cmake/libdwarf
-      - lib/libdwarf.so          # [linux]
-      - lib/libdwarf.dylib       # [osx]
     test:
       requires:
         - zlib
@@ -158,11 +154,13 @@ outputs:
         - zstd
       run:
     files:
-      - lib/libdwarf.so.*        # [linux]
-      - lib/libdwarf.*.dylib     # [osx]
+      - lib/libdwarf.so          # [linux]
+      - lib/libdwarf.dylib       # [osx]
     test:
       commands:
         - test ! -f $PREFIX/lib/libdwarf*.a
+        - test -f $PREFIX/lib/libdwarf.so      # [linux]
+        - test -f $PREFIX/lib/libdwarf.dylib   # [osx]
     about:
       home: https://www.prevanders.net/dwarf.html
       summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
