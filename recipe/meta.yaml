@@ -95,7 +95,6 @@ outputs:
     files:
       - include/libdwarf.h
       - include/dwarf.h
-      - include/libdwarf-0/dwarf.h
       - lib/pkgconfig/libdwarf*
       - lib/cmake/libdwarf
     test:
@@ -114,7 +113,6 @@ outputs:
         - pkg-config --print-errors --exact-version="\"$PKG_VERSION\"" libdwarf
         - test -f $PREFIX/include/libdwarf.h
         - test -f $PREFIX/include/dwarf.h
-        - test -f $PREFIX/include/libdwarf-0/dwarf.h
         - test -f $PREFIX/lib/libdwarf${SHLIB_EXT}
         - test -f $PREFIX/lib/cmake/libdwarf/libdwarfConfig.cmake
         - cd test
