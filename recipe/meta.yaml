@@ -10,6 +10,7 @@ source:
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
     - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
+    - patches/0003-soversion.patch
 
 build:
   number: 3
