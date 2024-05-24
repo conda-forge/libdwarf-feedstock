@@ -156,9 +156,9 @@ outputs:
       run:
     files:
       - lib/libdwarf.so          # [linux]
-      - lib/libdwarf.so.0        # [linux]
+      - lib/libdwarf.so.*        # [linux]
       - lib/libdwarf.dylib       # [osx]
-      - lib/libdwarf.dylib.0     # [osx]
+      - lib/libdwarf.dylib.*     # [osx]
     test:
       commands:
         - test ! -f $PREFIX/lib/libdwarf*.a
