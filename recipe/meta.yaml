@@ -10,9 +10,10 @@ source:
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
     - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
+    - patches/0003-soversion.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
@@ -155,12 +156,16 @@ outputs:
       run:
     files:
       - lib/libdwarf.so          # [linux]
+      - lib/libdwarf.so.*        # [linux]
       - lib/libdwarf.dylib       # [osx]
+      - lib/libdwarf.*.dylib     # [osx]
     test:
       commands:
         - test ! -f $PREFIX/lib/libdwarf*.a
-        - test -f $PREFIX/lib/libdwarf.so      # [linux]
-        - test -f $PREFIX/lib/libdwarf.dylib   # [osx]
+        - test -f $PREFIX/lib/libdwarf.so       # [linux]
+        - test -f $PREFIX/lib/libdwarf.so.0     # [linux]
+        - test -f $PREFIX/lib/libdwarf.dylib    # [osx]
+        - test -f $PREFIX/lib/libdwarf.0.dylib  # [osx]
     about:
       home: https://www.prevanders.net/dwarf.html
       summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
