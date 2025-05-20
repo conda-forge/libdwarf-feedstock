@@ -27,14 +27,14 @@ MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my reque
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
 
 
-About libdwarf
---------------
+About dwarfdump
+---------------
 
 Home: https://www.prevanders.net/dwarf.html
 
-Package license: LGPL-2.1-only
+Package license: GPL-2.0-only
 
-Summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
+Summary: utility dumping DWARF Debugging Information Format to text
 
 Development: https://github.com/davea42/libdwarf-code
 
@@ -50,14 +50,14 @@ MIPS/IRIX C compiler. In 1994 (I think the correct year) SGI agreed (at my reque
 open-source libdwarf (and in 1999 to open-source dwarfdump) so anyone could use them.
 
 
-About dwarfdump
----------------
+About libdwarf
+--------------
 
 Home: https://www.prevanders.net/dwarf.html
 
-Package license: GPL-2.0-only
+Package license: LGPL-2.1-only
 
-Summary: utility dumping DWARF Debugging Information Format to text
+Summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
 
 Development: https://github.com/davea42/libdwarf-code
 
