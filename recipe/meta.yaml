@@ -162,7 +162,7 @@ outputs:
       commands:
         - test ! -f $PREFIX/lib/libdwarf*.a
         - test -f $PREFIX/lib/libdwarf.so       # [linux]
-        - test -f $PREFIX/lib/libdwarf.so.0     # [linux]
+        - test -f $PREFIX/lib/libdwarf.so.2     # [linux]
         - test -f $PREFIX/lib/libdwarf.dylib    # [osx]
         - test -f $PREFIX/lib/libdwarf.0.dylib  # [osx]
     about:
