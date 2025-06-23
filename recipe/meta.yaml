@@ -164,7 +164,7 @@ outputs:
         - test -f $PREFIX/lib/libdwarf.so       # [linux]
         - test -f $PREFIX/lib/libdwarf.so.2     # [linux]
         - test -f $PREFIX/lib/libdwarf.dylib    # [osx]
-        - test -f $PREFIX/lib/libdwarf.0.dylib  # [osx]
+        - test -f $PREFIX/lib/libdwarf.2.dylib  # [osx]
     about:
       home: https://www.prevanders.net/dwarf.html
       summary: a library for manipulating DWARF Debugging Information Format (runtime .so)
