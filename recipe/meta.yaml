@@ -1,4 +1,4 @@
-{% set version = "0.12.0" %}
+{% set version = "2.0.0" %}
 
 package:
   name: libdwarf-split
@@ -6,13 +6,13 @@ package:
 
 source:
   url: https://github.com/davea42/libdwarf-code/releases/download/v{{ version }}/libdwarf-{{ version }}.tar.xz
-  sha256: 444dc1c5176f04d3ebc50341552a8b2ea6c334f8f1868a023a740ace0e6eae9f
+  sha256: c3d1db72a979e14ee60b93010f0698d30fc1bca4eb1341006783d4e9c9ec7e72
   patches:
     - patches/0001-add-enable_libdwarf-and-enable_dwarfdump-to-configur.patch
     - patches/0002-use-PATH-resolution-when-testing-dwarfdump.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
